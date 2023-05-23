@@ -8,7 +8,7 @@ import { NgxCSVParserError, NgxCsvParser } from 'ngx-csv-parser';
 })
 export class AppComponent {
     csvRecords: any;
-    header: boolean = false;
+    header: boolean = true;
     file: File | null = null;
 
     constructor(private ngxCsvParser: NgxCsvParser) {}
