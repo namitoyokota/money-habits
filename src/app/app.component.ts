@@ -5,4 +5,14 @@ import { Component } from '@angular/core';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {}
+export class AppComponent {
+    file: File | null = null;
+
+    onFileInput(files: FileList | null): void {
+        console.log(files);
+
+        if (files) {
+            this.file = files.item(0);
+        }
+    }
+}

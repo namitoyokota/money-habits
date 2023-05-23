@@ -5,3 +5,5 @@
     <li>Parse file and record data</li>
     <li>Display habits</li>
 </ol>
+
+<input #fileInput type="file" accept="image/*" maxSize="1024" capturePaste="1" (change)="onFileInput(fileInput.files)" />
