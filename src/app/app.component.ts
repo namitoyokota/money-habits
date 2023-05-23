@@ -1,6 +1,14 @@
 import { Component } from '@angular/core';
 import { NgxCSVParserError, NgxCsvParser } from 'ngx-csv-parser';
 
+interface Transaction {
+    Amount: number;
+    Description: string;
+    Time: string;
+    Type: string;
+    Date: string;
+}
+
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
