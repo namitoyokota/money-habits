@@ -1,16 +1,10 @@
 <h1>MONEY HABITS</h1>
 
-<ol>
-    <li>Import .csv file of transactions</li>
-    <li>Parse file and record data</li>
-    <li>Display habits</li>
-</ol>
+<p>Track your money spending habits</p>
 
-<input #fileInput type="file" accept=".csv" maxSize="1024" capturePaste="1" (change)="onFileInput(fileInput.files)" />
-
-<!-- <p *ngFor="let record of csvRecords">{{ record.Amount }} {{ record.Date }} {{ record.Description }} {{ record.Time }} {{ record.Type }}</p> -->
-
-<!-- <p *ngFor="let ha of mp | keyvalue">{{ ha.value.length }} {{ ha.key }}</p> -->
+<div>
+    <input #fileInput type="file" accept=".csv" maxSize="1024" capturePaste="1" (change)="onFileInput(fileInput.files)" />
+</div>
 
 <div class="groups">
     <div class="group" *ngFor="let group of mp | keyvalue">
@@ -23,7 +17,7 @@
             <div class="transaction" *ngFor="let transaction of group.value">
                 <span>{{ transaction.Type }}</span>
                 <span>{{ transaction.Date }} {{ transaction.Time }}</span>
-                <span>{{ transaction.Amount }}</span>
+                <span>{{ transaction.Amount | currency }}</span>
             </div>
         </mat-expansion-panel>
     </div>
