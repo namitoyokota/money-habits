@@ -10,4 +10,21 @@
 
 <!-- <p *ngFor="let record of csvRecords">{{ record.Amount }} {{ record.Date }} {{ record.Description }} {{ record.Time }} {{ record.Type }}</p> -->
 
-<p *ngFor="let ha of mp | keyvalue">{{ ha.value.length }} {{ ha.key }}</p>
+<!-- <p *ngFor="let ha of mp | keyvalue">{{ ha.value.length }} {{ ha.key }}</p> -->
+
+<div class="groups">
+    <div class="group" *ngFor="let group of mp | keyvalue">
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title> {{ group.value.length }} transactions </mat-panel-title>
+                <mat-panel-description> {{ group.key }} </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <div class="transaction" *ngFor="let transaction of group.value">
+                <span>{{ transaction.Type }}</span>
+                <span>{{ transaction.Date }} {{ transaction.Time }}</span>
+                <span>{{ transaction.Amount }}</span>
+            </div>
+        </mat-expansion-panel>
+    </div>
+</div>
