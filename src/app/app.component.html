@@ -8,4 +8,6 @@
 
 <input #fileInput type="file" accept=".csv" maxSize="1024" capturePaste="1" (change)="onFileInput(fileInput.files)" />
 
-<p *ngFor="let record of csvRecords">{{ record.Amount }} {{ record.Date }} {{ record.Description }} {{ record.Time }} {{ record.Type }}</p>
+<!-- <p *ngFor="let record of csvRecords">{{ record.Amount }} {{ record.Date }} {{ record.Description }} {{ record.Time }} {{ record.Type }}</p> -->
+
+<p *ngFor="let ha of mp | keyvalue">{{ ha.value.length }} {{ ha.key }}</p>
