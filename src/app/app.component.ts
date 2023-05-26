@@ -9,43 +9,46 @@ interface Transaction {
     Type: string;
 }
 
+interface TransactionGroup {
+    name: string;
+    transactions: Transaction[];
+}
+
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-    csvRecords: Transaction[] = [];
-    header = true;
-    file: File | null = null;
-
-    mp = new Map<string, Transaction[]>();
+    transactionGroups: TransactionGroup[] = [];
 
     constructor(private ngxCsvParser: NgxCsvParser) {}
 
     onFileInput(files: FileList | null): void {
         if (files) {
-            this.file = files.item(0);
-
             this.ngxCsvParser
                 .parse(files[0], { header: true, delimiter: ',', encoding: 'utf8' })
                 .pipe()
                 .subscribe({
                     next: (result): void => {
-                        this.csvRecords = result as Transaction[];
-
-                        const m = new Map<string, Transaction[]>();
-                        this.csvRecords.forEach((transaction) => {
-                            if (m.has(transaction.Description)) {
-                                const currentList = m.get(transaction.Description) as Transaction[];
-                                m.set(transaction.Description, [...currentList, transaction]);
+                        const transactions = result as Transaction[];
+                        transactions.forEach((transaction) => {
+                            const existingGroup = this.transactionGroups.find((group) => group.name === transaction.Description);
+                            if (existingGroup) {
+                                existingGroup.transactions.push(transaction);
                             } else {
-                                m.set(transaction.Description, [transaction]);
+                                const newGroup = { name: transaction.Description, transactions: [transaction] } as TransactionGroup;
+                                this.transactionGroups.push(newGroup);
                             }
                         });
 
-                        this.mp = new Map([...m].sort((a, b) => (a[1].length > b[1].length ? -1 : 1)));
-                        console.log(this.mp);
+                        this.transactionGroups = this.transactionGroups.sort((a, b) => {
+                            if (a.transactions.length === b.transactions.length) {
+                                return a.name > b.name ? 1 : -1;
+                            } else {
+                                return a.transactions.length > b.transactions.length ? -1 : 1;
+                            }
+                        });
                     },
                     error: (error: NgxCSVParserError): void => {
                         console.log('Error', error);

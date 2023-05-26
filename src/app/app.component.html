@@ -1,20 +1,18 @@
-<h1>MONEY HABITS</h1>
-
-<p>Track your money spending habits</p>
+<span>Money Habits - track your money spending habits</span>
 
 <div>
     <input #fileInput type="file" accept=".csv" maxSize="1024" capturePaste="1" (change)="onFileInput(fileInput.files)" />
 </div>
 
 <div class="groups">
-    <div class="group" *ngFor="let group of mp | keyvalue">
+    <div class="group" *ngFor="let group of transactionGroups">
         <mat-expansion-panel>
             <mat-expansion-panel-header>
-                <mat-panel-title> {{ group.value.length }} transactions </mat-panel-title>
-                <mat-panel-description> {{ group.key }} </mat-panel-description>
+                <mat-panel-title> {{ group.transactions.length }} transactions </mat-panel-title>
+                <mat-panel-description> {{ group.name }} </mat-panel-description>
             </mat-expansion-panel-header>
 
-            <div class="transaction" *ngFor="let transaction of group.value">
+            <div class="transaction" *ngFor="let transaction of group.transactions">
                 <span>{{ transaction.Type }}</span>
                 <span>{{ transaction.Date }} {{ transaction.Time }}</span>
                 <span>{{ transaction.Amount | currency }}</span>
