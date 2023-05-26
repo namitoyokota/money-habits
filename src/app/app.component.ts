@@ -23,6 +23,8 @@ interface TransactionGroup {
 export class AppComponent {
     transactionGroups: TransactionGroup[] = [];
 
+    displayedColumns = ['Date', 'Amount', 'Type', 'Description'];
+
     constructor(private ngxCsvParser: NgxCsvParser) {}
 
     onFileInput(files: FileList | null): void {

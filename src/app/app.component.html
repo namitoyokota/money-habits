@@ -12,12 +12,41 @@
                 <mat-panel-description> {{ group.name }} </mat-panel-description>
             </mat-expansion-panel-header>
 
-            <div class="transaction" *ngFor="let transaction of group.transactions">
+            <table mat-table [dataSource]="group.transactions" class="mat-elevation-z8">
+                <!-- Date Column -->
+                <ng-container matColumnDef="Date">
+                    <th mat-header-cell *matHeaderCellDef>Date</th>
+                    <td mat-cell *matCellDef="let element">{{ element.Date }} {{ element.Time }}</td>
+                </ng-container>
+
+                <!-- Amount Column -->
+                <ng-container matColumnDef="Amount">
+                    <th mat-header-cell *matHeaderCellDef>Amount</th>
+                    <td mat-cell *matCellDef="let element">{{ element.Amount }}</td>
+                </ng-container>
+
+                <!-- Type Column -->
+                <ng-container matColumnDef="Type">
+                    <th mat-header-cell *matHeaderCellDef>Type</th>
+                    <td mat-cell *matCellDef="let element">{{ element.Type }}</td>
+                </ng-container>
+
+                <!-- Description Column -->
+                <ng-container matColumnDef="Description">
+                    <th mat-header-cell *matHeaderCellDef>Description</th>
+                    <td mat-cell *matCellDef="let element">{{ element.Description }}</td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+
+            <!-- <div class="transaction" *ngFor="let transaction of group.transactions">
                 <span>{{ transaction.Description }}</span>
                 <span>{{ transaction.Date }} {{ transaction.Time }}</span>
                 <span>{{ transaction.Type }}</span>
                 <span>{{ transaction.Amount | currency }}</span>
-            </div>
+            </div> -->
         </mat-expansion-panel>
     </div>
 </div>
