@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NgxCSVParserError, NgxCsvParser } from 'ngx-csv-parser';
+import { stringSimilarity } from 'string-similarity-js';
 
 interface Transaction {
     Amount: number;
@@ -33,7 +34,9 @@ export class AppComponent {
                     next: (result): void => {
                         const transactions = result as Transaction[];
                         transactions.forEach((transaction) => {
-                            const existingGroup = this.transactionGroups.find((group) => group.name === transaction.Description);
+                            const existingGroup = this.transactionGroups.find(
+                                (group) => stringSimilarity(group.name, transaction.Description) > 0.75,
+                            );
                             if (existingGroup) {
                                 existingGroup.transactions.push(transaction);
                             } else {

@@ -13,8 +13,9 @@
             </mat-expansion-panel-header>
 
             <div class="transaction" *ngFor="let transaction of group.transactions">
-                <span>{{ transaction.Type }}</span>
+                <span>{{ transaction.Description }}</span>
                 <span>{{ transaction.Date }} {{ transaction.Time }}</span>
+                <span>{{ transaction.Type }}</span>
                 <span>{{ transaction.Amount | currency }}</span>
             </div>
         </mat-expansion-panel>
