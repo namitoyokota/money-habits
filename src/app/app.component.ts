@@ -63,15 +63,6 @@ export class AppComponent {
     }
 
     calculateTotal(transactions: Transaction[]): number {
-        let total = 0;
-        transactions.forEach((transaction) => {
-            if (transaction.Type === 'Deposit') {
-                total += +transaction.Amount;
-            } else {
-                total -= +transaction.Amount;
-            }
-        });
-
-        return total;
+        return transactions.reduce((sum, current) => sum + +current.Amount, 0);
     }
 }
