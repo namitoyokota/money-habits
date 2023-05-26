@@ -65,4 +65,8 @@ export class AppComponent {
     calculateTotal(transactions: Transaction[]): number {
         return transactions.reduce((sum, current) => sum + +current.Amount, 0);
     }
+
+    calculateAverage(transactions: Transaction[]): number {
+        return this.calculateTotal(transactions) / transactions.length;
+    }
 }
